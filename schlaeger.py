@@ -6,12 +6,12 @@ from settings import *
 class Schlaeger:
     def __init__(self):
         self.height = 10
-        self.width = 120
+        self.width = 100
 
         self.pos_x = 0.5 * window_size - 0.5 * self.width
         self.pos_y = window_size - self.height
 
-        self.speed_x = 0.5
+        self.speed_x = 0.7
     
         self.hitbox = pygame.Rect(
             self.pos_x,

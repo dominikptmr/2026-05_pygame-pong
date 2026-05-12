@@ -6,8 +6,7 @@ from schlaeger import Schlaeger
 
 pygame.init()
 
-
-ende = False
+running = True
 score_counter = 0
 
 schlaeger = Schlaeger()
@@ -16,7 +15,7 @@ Ball.balls.append(Ball())
 while not ende:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            ende=True
+            running = False
     
     window.fill((255, 255, 255))
     
@@ -39,16 +38,14 @@ while not ende:
         
         if ball.check_schlaeger_collision(schlaeger.hitbox):
             score_counter += 1
-            Ball.balls.append(Ball())
+            if not score_counter % 2:
+                Ball.balls.append(Ball())
         
         if ball.check_ball_lost():
             ball.remove_ball(ball)
             Ball.balls_in_play -= 1
-    
-    
-    if Ball.balls_in_play <= 0:
-        ende = True
-
+            if Ball.balls_in_play <= 0:
+                running = False
         
     pygame.display.flip()
 
