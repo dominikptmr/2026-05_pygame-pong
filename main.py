@@ -2,7 +2,7 @@ import pygame
 
 from settings import *
 from ball import Ball
-from schlaeger import Schlaeger
+from paddle import Paddle
 
 
 def main():
@@ -11,7 +11,7 @@ def main():
     running = True
     score_counter = 0
 
-    schlaeger = Schlaeger()
+    paddle = Paddle()
     Ball.balls.append(Ball())
 
     while running:
@@ -26,9 +26,9 @@ def main():
         score_box = score_text.get_rect(center=(window_size / 2, window_size / 2))
         window.blit(score_text, score_box)
     
-        schlaeger.move_schlaeger()
-        schlaeger.set_hitbox()
-        schlaeger.draw_schlaeger()
+        paddle.move_paddle()
+        paddle.set_hitbox()
+        paddle.draw_paddle()
 
     
         for ball in Ball.balls[:]:
@@ -38,7 +38,7 @@ def main():
         
             ball.check_window_collision()
         
-            if ball.check_schlaeger_collision(schlaeger.hitbox):
+            if ball.check_paddle_collision(paddle.hitbox):
                 score_counter += 1
                 if not score_counter % 3:
                     Ball.balls.append(Ball())

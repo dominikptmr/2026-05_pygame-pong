@@ -40,8 +40,8 @@ class Ball:
         elif self.pos_x < self.radius:
             self.speed_x *= -1
     
-    def check_schlaeger_collision(self, schlaeger_hitbox):
-        if self.hitbox.colliderect(schlaeger_hitbox) and self.speed_y > 0:
+    def check_paddle_collision(self, paddle_hitbox):
+        if self.hitbox.colliderect(paddle_hitbox) and self.speed_y > 0:
             self.speed_y *= -(0.9 + (random.random() * 0.2))
             self.speed_x *= 0.7 + (random.random() * 0.6)
             return True

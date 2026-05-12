@@ -3,7 +3,7 @@ import pygame
 from settings import *
 
 
-class Schlaeger:
+class Paddle:
     def __init__(self):
         self.height = 10
         self.width = 100
@@ -20,7 +20,7 @@ class Schlaeger:
             self.height
         )
     
-    def move_schlaeger(self):
+    def move_paddle(self):
         keys = pygame.key.get_pressed()
     
         if keys[pygame.K_RIGHT]:
@@ -36,7 +36,7 @@ class Schlaeger:
             self.height
         )
     
-    def draw_schlaeger(self):
+    def draw_paddle(self):
         pygame.draw.rect(
             window,
             (0, 0, 0),
