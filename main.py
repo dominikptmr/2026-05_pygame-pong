@@ -5,13 +5,22 @@ from ball import Ball
 from paddle import Paddle
 
 
-def main():
-    pygame.init()
-    clock = pygame.time.Clock()
+def reset_game():
+    Ball.balls = []
+    Ball.balls.append(Ball())
+    paddle = Paddle()
+    score_counter = 0
+    
+    return paddle, score_counter
 
+
+def main():
+    
+    clock = pygame.time.Clock()
+    
     running = True
     score_counter = 0
-
+    
     paddle = Paddle()
     Ball.balls.append(Ball())
 
@@ -19,10 +28,10 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-    
+
         window.fill((255, 255, 255))
     
-        score_text = font.render(f"{score_counter}", True, (0, 0, 0))
+        score_text = counter_font.render(f"{score_counter}", True, (0, 0, 0))
         score_text.set_alpha(64)
         score_box = score_text.get_rect(center=(window_size / 2, window_size / 2))
         window.blit(score_text, score_box)
@@ -48,7 +57,7 @@ def main():
                 ball.remove_ball(ball)
                 Ball.balls_in_play -= 1
                 if Ball.balls_in_play <= 0:
-                    running = False
+                    paddle, score_counter = reset_game()
         
         pygame.display.flip()
         
