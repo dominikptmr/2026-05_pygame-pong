@@ -11,7 +11,7 @@ class Schlaeger:
         self.pos_x = 0.5 * window_size - 0.5 * self.width
         self.pos_y = window_size - self.height
 
-        self.speed_x = 0.7
+        self.speed_x = 0.6
     
         self.hitbox = pygame.Rect(
             self.pos_x,

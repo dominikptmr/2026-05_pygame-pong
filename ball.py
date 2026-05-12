@@ -42,7 +42,8 @@ class Ball:
     
     def check_schlaeger_collision(self, schlaeger_hitbox):
         if self.hitbox.colliderect(schlaeger_hitbox) and self.speed_y > 0:
-            self.speed_y *= -1
+            self.speed_y *= -(0.9 + (random.random() * 0.2))
+            self.speed_x *= 0.7 + (random.random() * 0.6)
             return True
         return False
     
