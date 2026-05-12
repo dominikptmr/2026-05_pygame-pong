@@ -7,6 +7,7 @@ from paddle import Paddle
 
 def main():
     pygame.init()
+    clock = pygame.time.Clock()
 
     running = True
     score_counter = 0
@@ -50,6 +51,8 @@ def main():
                     running = False
         
         pygame.display.flip()
+        
+        clock.tick(120)
 
     pygame.quit()
     

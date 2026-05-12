@@ -11,7 +11,7 @@ class Paddle:
         self.pos_x = 0.5 * window_size - 0.5 * self.width
         self.pos_y = window_size - self.height
 
-        self.speed_x = 0.6
+        self.speed_x = 8
     
         self.hitbox = pygame.Rect(
             self.pos_x,

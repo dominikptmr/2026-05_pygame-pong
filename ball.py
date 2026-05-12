@@ -16,8 +16,8 @@ class Ball:
         Ball.balls_total += 1
         Ball.balls_in_play += 1
         
-        self.speed_x = random.random() * 0.8 - 0.4
-        self.speed_y = random.random() * 0.2 + 0.2
+        self.speed_x = random.random() * 6 - 3
+        self.speed_y = random.random() * 3 + 3
         self.pos_x = random.random() * (0.5 * window_size) + 0.25 * window_size
         self.pos_y = float(self.radius)
 
