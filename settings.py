@@ -1,9 +1,16 @@
-import pygame
 
-pygame.init()
+WINDOW_SIZE = 600
+BACKGROUND_COLOR = (255, 255, 255)
 
-window_size = 600
-window = pygame.display.set_mode([window_size, window_size])
+FPS = 120
 
-counter_font_size = 100
-counter_font = pygame.font.Font(None, counter_font_size)
+SCORE_FONT_SIZE = 100
+SCORE_FONT_OPACITY = 64
+SCORE_FONT_COLOR = (0, 0, 0)
+
+PADDLE_HEIGHT = 10
+PADDLE_WIDTH = 100
+PADDLE_SPEED_X = 8
+PADDLE_COLOR = (0, 0, 0)
+
+BALL_RADIUS = 10

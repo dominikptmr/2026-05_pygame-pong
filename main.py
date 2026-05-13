@@ -6,62 +6,64 @@ from paddle import Paddle
 
 
 def reset_game():
-    Ball.balls = []
-    Ball.balls.append(Ball())
+    balls = [Ball()]
     paddle = Paddle()
     score_counter = 0
     
-    return paddle, score_counter
+    return paddle, balls, score_counter
 
 
 def main():
     
+    pygame.init()
+    
+    window = pygame.display.set_mode([WINDOW_SIZE, WINDOW_SIZE])
     clock = pygame.time.Clock()
     
-    running = True
-    score_counter = 0
-    
     paddle = Paddle()
-    Ball.balls.append(Ball())
+    balls = [Ball()]
+    
+    running = True
+    score = 0
+    
+    score_font = pygame.font.Font(None, SCORE_FONT_SIZE)
 
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
 
-        window.fill((255, 255, 255))
+        window.fill(BACKGROUND_COLOR)
     
-        score_text = counter_font.render(f"{score_counter}", True, (0, 0, 0))
-        score_text.set_alpha(64)
-        score_box = score_text.get_rect(center=(window_size / 2, window_size / 2))
+        score_text = score_font.render(f"{score}", True, SCORE_FONT_COLOR)
+        score_text.set_alpha(SCORE_FONT_OPACITY)
+        score_box = score_text.get_rect(center=(WINDOW_SIZE / 2, WINDOW_SIZE / 2))
         window.blit(score_text, score_box)
     
-        paddle.move_paddle()
-        paddle.set_hitbox()
-        paddle.draw_paddle()
+        paddle.update()
+        paddle.draw(window)
 
     
-        for ball in Ball.balls[:]:
-            ball.set_pos()
-            ball.set_hitbox()
-            ball.draw_ball()
+        for ball in balls[:]:
+            ball.update()
+            ball.draw(window)
         
             ball.check_window_collision()
         
             if ball.check_paddle_collision(paddle.hitbox):
-                score_counter += 1
-                if not score_counter % 3:
-                    Ball.balls.append(Ball())
+                score += 1
+                if score % 3 == 0:
+                    balls.append(Ball())
         
             if ball.check_ball_lost():
-                ball.remove_ball(ball)
-                Ball.balls_in_play -= 1
-                if Ball.balls_in_play <= 0:
-                    paddle, score_counter = reset_game()
+                balls.remove(ball)
+            
+            if len(balls) <= 0:
+                paddle, balls, score = reset_game()
         
         pygame.display.flip()
         
-        clock.tick(120)
+        clock.tick(FPS)
 
     pygame.quit()
     
