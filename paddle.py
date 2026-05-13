@@ -9,7 +9,7 @@ class Paddle:
         self.width = PADDLE_WIDTH
 
         self.pos_x = 0.5 * WINDOW_SIZE - 0.5 * self.width
-        self.pos_y = WINDOW_SIZE - self.height
+        self.pos_y = WINDOW_SIZE - self.height -10
 
         self.speed_x = PADDLE_SPEED_X
     
@@ -39,7 +39,7 @@ class Paddle:
         pygame.draw.rect(
             window,
             PADDLE_COLOR,
-            (self.pos_x, WINDOW_SIZE - self.height , self.width , self.height)
+            (self.pos_x, self.pos_y, self.width, self.height)
         )
         
     
