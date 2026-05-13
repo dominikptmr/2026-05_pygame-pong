@@ -1,3 +1,6 @@
+from pathlib import Path
+
+SAVE_FILE = Path("data/save.json")
 
 WINDOW_SIZE = 600
 BACKGROUND_COLOR = (255, 255, 255)

@@ -1,11 +1,14 @@
 import pygame
 
+import json
+from datetime import datetime
+
 from settings import *
 from ball import Ball
 from paddle import Paddle
 
+
 class Game:
-    
     def __init__(self):
         self.window = pygame.display.set_mode([WINDOW_SIZE, WINDOW_SIZE])
         self.clock = pygame.time.Clock()
@@ -40,13 +43,15 @@ class Game:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return True    
-    
+
+   
     def update(self):
         self.paddle.update()
 
         for ball in self.balls[:]:
                 ball.update()
-    
+
+   
     def manage_ball_events(self):
         for ball in self.balls[:]:
             ball.check_window_collision()
@@ -58,12 +63,40 @@ class Game:
             
             if ball.lost():
                     self.remove_ball(ball)
-    
+
+ 
+    def save(self):
+        if self.score > 0:
+            game_state = {
+                "score": self.score,
+                "end_time": str(datetime.now()),
+            }
+            
+            if not SAVE_FILE.exists():
+                data = {
+                    "games_played": 0,
+                    "high_score": 0,
+                    "game_history": []
+                }
+            else:
+                with SAVE_FILE.open("r") as file:
+                    data = json.load(file)
+
+            data["games_played"] += 1
+            data["game_history"].append(game_state)
+            if self.score > data["high_score"]:
+                data["high_score"] = self.score
+
+            with SAVE_FILE.open("w") as file:
+                json.dump(data, file, indent=4)
+  
+                    
     def reset(self):
         self.paddle = Paddle()
         self.balls = [Ball()]
         self.score = 0
-                     
+
+                   
     def draw(self):
         self.window.fill(BACKGROUND_COLOR)
         self.draw_score()
@@ -85,9 +118,9 @@ class Game:
             self.draw()
             
             if not self.balls_in_play():
+                self.save()
                 self.reset()
         
             pygame.display.flip()
         
             self.clock.tick(FPS)
-    
